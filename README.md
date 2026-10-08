@@ -83,7 +83,7 @@ ratio are explained in [Section 1](#1-key-concepts).
 ### Returns and units
 
 - **Simple return.** The percentage change in value over a period:
-  $r_t = P_t / P_{t-1} - 1$, where $P_t$ is the value at time $t$. A move from
+  $`r_t = P_t / P_{t-1} - 1`$, where $P_t$ is the value at time $t$. A move from
   100 to 101 is a return of 0.01 (1%).
 - **Log return.** $\log(1 + r_t)$. Log returns add up over time, so the return
   over 15 minutes is the sum of the 15 one-minute log returns. For small
@@ -144,9 +144,11 @@ ratio are explained in [Section 1](#1-key-concepts).
 - **Out-of-sample $R^2$.** The percentage reduction in squared forecast error
   compared with always predicting a return of zero:
 
-  $$R^2_{OOS} = 1 - \frac{\sum_t (y_t - \hat{y}_t)^2}{\sum_t y_t^2},$$
+  ```math
+  R^2_{OOS} = 1 - \frac{\sum_t (y_t - \hat{y}_t)^2}{\sum_t y_t^2},
+  ```
 
-  where $y_t$ is the realized return and $\hat{y}_t$ the forecast. A value of 0
+  where $y_t$ is the realized return and $`\hat{y}_t`$ the forecast. A value of 0
   means no better than predicting zero, and a negative value means worse. Stock
   prices are very close to unpredictable over short horizons, so an $R^2$ of a
   few tenths of a percent is economically meaningful when it is earned on
@@ -158,16 +160,19 @@ ratio are explained in [Section 1](#1-key-concepts).
   \$1 of notional.
 - **Position.** $w_t$ is how much of the market is held during interval $t$,
   as a multiple of the notional.
-- **Profit and loss (P&L).** The gain or loss from a position:
-  $\text{P\&L}_t = w_t \times r_t$, as a fraction of the notional.
+- **Profit and loss (P&L, written PnL in formulas).** The gain or loss from a
+  position:
+  $`\text{PnL}_t = w_t \times r_t`$, as a fraction of the notional.
 - **Gross vs. net.** *Gross* means before trading costs and *net* means after.
-- **Turnover.** The total amount traded, $\sum_t |w_t - w_{t-1}|$, in units of
+- **Turnover.** The total amount traded, $`\sum_t |w_t - w_{t-1}|`$, in units of
   notional. Moving from long (+1) to short (−1) trades 2 units: sell what you
   own, then short the same amount again.
 - **Sharpe ratio.** Average return per unit of volatility; the standard measure
   of risk-adjusted performance:
 
-  $$\text{Sharpe} = \frac{\text{mean(daily P\&L)}}{\text{standard deviation(daily P\&L)}} \times \sqrt{252}.$$
+  ```math
+  \text{Sharpe} = \frac{\text{mean(daily PnL)}}{\text{standard deviation(daily PnL)}} \times \sqrt{252}.
+  ```
 
   Roughly, a Sharpe ratio of 1 means one year's average gain equals one
   standard deviation of the year's P&L. 
@@ -216,9 +221,9 @@ years:
 - **Annualized volatility:** $\sqrt{RV/25}$, where $RV = \sum_t r_t^2$.
 - **Relative jump measure:** the share of variance coming from sudden large
   price moves ("jumps") rather than continuous movement, estimated as
-  $(RV - BP)/RV$. Here $BP = \frac{\pi}{2}\sum_t |r_t\, r_{t-1}|$ is *bipower
+  $(RV - BP)/RV$. Here $`BP = \frac{\pi}{2}\sum_t |r_t\, r_{t-1}|`$ is *bipower
   variation*, a variance estimate that is largely unaffected by jumps.
-- **First-order autocorrelation:** $\sum_t r_t r_{t-1} / RV$, which measures
+- **First-order autocorrelation:** $`\sum_t r_t r_{t-1} / RV`$, which measures
   how much one interval's return resembles the next. Positive values mean some
   continuation, which is the basic reason prediction might be possible.
 - **Correlation with the market:** the same cross-product normalized by both
@@ -275,9 +280,9 @@ coefficients differently. This *regularization* trades a little bias for much
 less overfitting when there are many noisy, correlated predictors.
 
 - **Ridge.** Shrinks all coefficients toward zero smoothly:
-  $\min_\beta \frac{1}{2n}\lVert y - X\beta\rVert^2 + \frac{\lambda}{2}\lVert\beta\rVert_2^2$.
+  $`\min_\beta \frac{1}{2n}\lVert y - X\beta\rVert^2 + \frac{\lambda}{2}\lVert\beta\rVert_2^2`$.
 - **Lasso.** Sets many coefficients exactly to zero, which selects predictors:
-  $\min_\beta \frac{1}{2n}\lVert y - X\beta\rVert^2 + \alpha\lVert\beta\rVert_1$.
+  $`\min_\beta \frac{1}{2n}\lVert y - X\beta\rVert^2 + \alpha\lVert\beta\rVert_1`$.
 - **Elastic Net.** Mixes the two penalties:
   $\alpha\rho\lVert\beta\rVert_1 + \frac{\alpha(1-\rho)}{2}\lVert\beta\rVert_2^2$.
 
@@ -299,7 +304,7 @@ Each test year is forecast by models fitted only on earlier data:
 2. **Standardize.** Each predictor and the target are rescaled to mean 0 and
    standard deviation 1, using the training period's means and standard
    deviations only. For the target, that is
-   $z = (y - \bar{y}_{train}) / s_{train}$.
+   $`z = (y - \bar{y}_{train}) / s_{train}`$.
 3. **Tune.** Each candidate penalty is fitted on training data and scored by
    its mean squared error on the validation data, in return units. The penalty
    with the lowest validation error is kept.
@@ -307,7 +312,9 @@ Each test year is forecast by models fitted only on earlier data:
    every interval of the test year. It predicts the *standardized* target
    $\hat{z}$, so each forecast is converted back to a return:
 
-   $$\hat{y} = \bar{y}_{train} + s_{train}\,\hat{z}.$$
+   ```math
+   \hat{y} = \bar{y}_{train} + s_{train}\,\hat{z}.
+   ```
 
    Each forecast is therefore the training-period average return plus an
    adjustment driven by the predictors. When every predictor equals its
@@ -365,17 +372,19 @@ and recomputing each statistic. It works in four steps.
 
 **Step 1: summarize each trading day with three kinds of sums.** For trading
 day $d$, with realized returns $y_t$ and model $m$'s forecasts
-$\hat{y}_{m,t}$ in its intervals $t$:
+$`\hat{y}_{m,t}`$ in its intervals $t$:
 
 | Daily sum | Formula | Meaning |
 |---|---|---|
 | Interval count | $n_d$ | Number of 15-minute intervals that day (usually 26) |
-| Squared returns | $S_d = \sum_{t \in d} y_t^2$ | The squared error a zero forecast would make that day |
-| Squared errors of model $m$ | $SSE_{m,d} = \sum_{t \in d} (y_t - \hat{y}_{m,t})^2$ | Model $m$'s squared forecast error that day |
+| Squared returns | $`S_d = \sum_{t \in d} y_t^2`$ | The squared error a zero forecast would make that day |
+| Squared errors of model $m$ | $`SSE_{m,d} = \sum_{t \in d} (y_t - \hat{y}_{m,t})^2`$ | Model $m$'s squared forecast error that day |
 
 Pooled $R^2$ can be computed exactly from these daily sums:
 
-$$R^2_m = 1 - \frac{\sum_d SSE_{m,d}}{\sum_d S_d}.$$
+```math
+R^2_m = 1 - \frac{\sum_d SSE_{m,d}}{\sum_d S_d}.
+```
 
 The 111,084 intervals therefore reduce to 4,280 daily rows. Each day stays together as one unit, and a day with more intervals
 automatically carries more weight.
@@ -406,7 +415,9 @@ squared error is the unpredictable part of the return, which all models share.
 When one model has an unlucky draw, the others usually do too. Pairing cancels
 this shared noise:
 
-$$\mathrm{Var}(R^2_A - R^2_B) = \mathrm{Var}(R^2_A) + \mathrm{Var}(R^2_B) - 2\,\mathrm{Cov}(R^2_A, R^2_B).$$
+```math
+\mathrm{Var}(R^2_A - R^2_B) = \mathrm{Var}(R^2_A) + \mathrm{Var}(R^2_B) - 2\,\mathrm{Cov}(R^2_A, R^2_B).
+```
 
 The covariance is large, so a difference is far less uncertain than either
 $R^2$ on its own.
@@ -518,7 +529,9 @@ versions are reported, and test results were not used to choose between them.
 Each year's contribution is the error reduction in that year divided by the
 *whole period's* sum of squared returns:
 
-$$\text{contribution}_{year} = 100 \times \frac{SSE^{\text{market only}}_{year} - SSE^{\text{full}}_{year}}{\sum_{\text{all years}} y_t^2}.$$
+```math
+\text{contribution}_{year} = 100 \times \frac{SSE^{\text{market only}}_{year} - SSE^{\text{full}}_{year}}{\sum_{\text{all years}} y_t^2}.
+```
 
 Here SSE is the sum of squared forecast errors.
 
@@ -584,12 +597,16 @@ size of moves, not only their direction.
 ### 6.2 A simple trading rule
 
 **Rule (sign).** Go long \$1 when the forecast is positive and short \$1 when it
-is negative: $w_t = \text{sign}(\hat{y}_t)$.
+is negative: $`w_t = \text{sign}(\hat{y}_t)`$.
 
 Daily net P&L at a cost of $c$ per unit traded is
 
-$$\text{net P\&L}_d = \sum_{t \in d} w_t\, r_t \;-\; c \times \text{turnover}_d,$$
-$$\text{turnover}_d = |w_{\text{first}}| + \sum_{t \in d} |w_t - w_{t-1}| + |w_{\text{last}}|.$$
+```math
+\text{net PnL}_d = \sum_{t \in d} w_t\, r_t \;-\; c \times \text{turnover}_d,
+```
+```math
+\text{turnover}_d = |w_{\text{first}}| + \sum_{t \in d} |w_t - w_{t-1}| + |w_{\text{last}}|.
+```
 
 The turnover includes opening the first position and closing the last one each
 day.
@@ -704,7 +721,9 @@ The difference matters for using the model today:
 To tell them apart, each test day is classified by **ex-ante volatility**, a
 volatility estimate built only from data available before the day opens:
 
-$$\sigma_d = \sqrt{252 \times \tfrac{1}{5}\textstyle\sum_{k=1}^{5} RV_{d-k}}, \qquad RV_{d} = \sum_{t \in d} r_t^2.$$
+```math
+\sigma_d = \sqrt{252 \times \tfrac{1}{5}\textstyle\sum_{k=1}^{5} RV_{d-k}}, \qquad RV_{d} = \sum_{t \in d} r_t^2.
+```
 
 Days are split into equal thirds (terciles) by $\sigma_d$, with cut-offs at
 7.7% and 11.3% annualized. These figures cover only the trading session, so
