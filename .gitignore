@@ -1,0 +1,60 @@
+# Python environment
+.venv/
+
+# Python caches
+__pycache__/
+*.py[cod]
+
+# Tool caches
+.pytest_cache/
+.ruff_cache/
+.cache/
+.coverage
+htmlcov/
+
+# Notebooks
+.ipynb_checkpoints/
+
+# Local data and authors' large replication package
+data/
+replication_files/
+.local_archive/
+docs/
+
+# Large intermediate outputs
+results/cache/
+results/intermediate/
+*.parquet
+
+# Publish selected figures and aggregate results; preserve all other outputs locally.
+results/forecasting/*
+!results/forecasting/comparison_2004_2020/
+!results/forecasting/bootstrap_2004_2020/
+!results/forecasting/feature_ablation_2004_2020/
+!results/forecasting/market_sensitivity_2004_2020/
+!results/forecasting/strategy_2004_2020/
+results/forecasting/*/*
+!results/forecasting/*/pooled_metrics.csv
+!results/forecasting/*/annual_metrics.csv
+!results/forecasting/*/forecast_correlations.csv
+!results/forecasting/*/prediction_differences.csv
+!results/forecasting/*/confidence_intervals.csv
+!results/forecasting/*/point_estimates.csv
+!results/forecasting/*/penalty_selection.csv
+!results/forecasting/*/annual_contributions.csv
+!results/forecasting/strategy_2004_2020/deciles.csv
+!results/forecasting/strategy_2004_2020/hit_rates.csv
+!results/forecasting/strategy_2004_2020/strategy_summary.csv
+!results/forecasting/strategy_2004_2020/cost_sensitivity.csv
+!results/forecasting/strategy_2004_2020/sharpe_ceiling.csv
+!results/forecasting/strategy_2004_2020/time_of_day.csv
+!results/forecasting/strategy_2004_2020/volatility_regimes*.csv
+!results/forecasting/*/*.png
+!results/forecasting/*/*.svg
+results/audits/
+
+# Local editor and credential files
+.env
+.env.*
+.idea/
+.vscode/

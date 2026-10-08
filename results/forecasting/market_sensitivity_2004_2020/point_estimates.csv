@@ -1,0 +1,9 @@
+statistic,estimate
+full_r2,0.0017141117088658175
+market_only_r2,0.0006344190252119963
+no_characteristics_r2,0.0016652458416992477
+market_original_r2,0.0007513911107094318
+full_minus_market_only,0.0010796926836538212
+full_minus_market_original,0.0009627205981563858
+full_minus_no_characteristics,4.886586716656982e-05
+market_only_minus_market_original,-0.00011697208549743543
