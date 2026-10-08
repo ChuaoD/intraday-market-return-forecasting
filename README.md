@@ -144,9 +144,7 @@ ratio are explained in [Section 1](#1-key-concepts).
 - **Out-of-sample $R^2$.** The percentage reduction in squared forecast error
   compared with always predicting a return of zero:
 
-  ```math
-  R^2_{OOS} = 1 - \frac{\sum_t (y_t - \hat{y}_t)^2}{\sum_t y_t^2},
-  ```
+  $`\displaystyle R^2_{OOS} = 1 - \frac{\sum_t (y_t - \hat{y}_t)^2}{\sum_t y_t^2},`$
 
   where $y_t$ is the realized return and $`\hat{y}_t`$ the forecast. A value of 0
   means no better than predicting zero, and a negative value means worse. Stock
@@ -170,9 +168,7 @@ ratio are explained in [Section 1](#1-key-concepts).
 - **Sharpe ratio.** Average return per unit of volatility; the standard measure
   of risk-adjusted performance:
 
-  ```math
-  \text{Sharpe} = \frac{\text{mean(daily PnL)}}{\text{standard deviation(daily PnL)}} \times \sqrt{252}.
-  ```
+  $`\displaystyle \text{Sharpe} = \frac{\text{mean(daily PnL)}}{\text{standard deviation(daily PnL)}} \times \sqrt{252}.`$
 
   Roughly, a Sharpe ratio of 1 means one year's average gain equals one
   standard deviation of the year's P&L. 
@@ -312,9 +308,7 @@ Each test year is forecast by models fitted only on earlier data:
    every interval of the test year. It predicts the *standardized* target
    $\hat{z}$, so each forecast is converted back to a return:
 
-   ```math
-   \hat{y} = \bar{y}_{train} + s_{train}\,\hat{z}.
-   ```
+   $`\displaystyle \hat{y} = \bar{y}_{train} + s_{train}\,\hat{z}.`$
 
    Each forecast is therefore the training-period average return plus an
    adjustment driven by the predictors. When every predictor equals its
@@ -660,7 +654,7 @@ in proportion to the forecast, scaled by the average forecast size over the prev
 | Above trailing 90th percentile | 0.10 | 3.4 | 1.66 | **1.10 bp** | 0.90 | 0.15 |
 | Linear | 1.01 | 25.1 | 2.22 | 0.85 bp | 0.91 | −0.40 |
 
-*Average absolute position is the average of $|w_t|$ over all intervals. For
+*Average absolute position is the average of $`|w_t|`$ over all intervals. For
 the threshold rules it equals the proportion of intervals with a position. For the
 linear rule the position size varies, but averages about 1.*
 
