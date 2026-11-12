@@ -287,9 +287,9 @@ direction. For example, if two scores fall from 0.30% and 0.28% to 0.08% and
 the scores across draws reduces the variance of their difference.
 
 ```math
-\operatorname{Var}(R_A^2-R_B^2)
-=\operatorname{Var}(R_A^2)+\operatorname{Var}(R_B^2)
--2\operatorname{Cov}(R_A^2,R_B^2).
+\mathrm{Var}(R_A^2-R_B^2)
+=\mathrm{Var}(R_A^2)+\mathrm{Var}(R_B^2)
+-2\,\mathrm{Cov}(R_A^2,R_B^2).
 ```
 
 | Model | R² (%) | 95% interval (%) |
